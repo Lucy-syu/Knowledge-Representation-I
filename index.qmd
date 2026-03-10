@@ -1,0 +1,5 @@
+# Prefacio {.unnumbered}
+
+Este es un libro Quarto destinado a albergar los conocimientos adquiridos en la asignatura Representación del Conocimiento I, del tercer curso de Ingeniería Informática en la Universidad de Málaga.
+
+El material aquí expuesto proviene, casi en su totalidad, del material en PDF aportado y explicado por el profesor que impartió dicha asignatura en el curso 2025/2026, el catedrático Manuel Ojeda Aciego. Este libro está destinado puramente a propósitos educativos y no pretende apropiarse de, ni monetizar, sus contenidos.

@@ -1,0 +1,113 @@
+# Lenguajes, sistemas y teorías formales
+
+Un *lenguaje natural* es el idioma hablado o escrito por humanos para propósitos generales de comunicación, mientras que un *lenguaje formal* está construido con un propósito específico, como pueden ser los lenguajes de programación (Fortran, C, Java, Python, R, ...) y los usados en el estudio de la lógica formal. Ambos necesitan un *alfabeto* y una gramática (*sintaxis*) que nos indique su vocabulario y cómo construir "frases con sentido".
+
+::: {.callout-warning}
+Es importante tener en cuenta que un mismo alfabeto puede servir para distintos idiomas, así como un mismo idioma puede escribirse en distintos alfabetos. Los lenguajes formales suelen usar el alfabeto ASCII.
+:::
+
+Los aspectos comunes a toda Lógica son:
+- Sintaxis.
+- Semántica.
+- Teoría de la Demostración.
+- ¿Deducción automatizable?
+
+## Lenguaje formal
+
+::: {.callout-note icon=false}
+
+## Definición
+
+Un lenguaje L sobre un conjunto numerable A que llamaremos alfabeto, es un subconjunto no vacío del lenguaje universal sobre A:
+
+$$ L \subseteq A^* = \bigcup_{n\in\mathbb{N}} A^n$$
+:::
+
+Equivalentemente:
+
+- Un conjunto de símbolos, llamado alfabeto del lenguaje.
+- Un conjunto de reglas de formación que determinan qué cadenas de símbolos son fbfs y que constituyen la gramática del lenguaje.
+
+### Ejercicio: El lenguaje 'AB'
+
+- Alfabeto: A,B
+- Elementos primitivos: 'A' y 'B' son fórmulas bien formadas (fbf).
+- Reglas de construcción:
+  - Si $\mu$ es una fbf entonces AA$\mu$ es fbf.
+  - Si $\mu$ es una fbf entonces $\mu$BBB es fbf.
+  
+Defina por comprensión el conjunto de fbfs de 'AB'.
+
+### Ejercicio: El lenguaje 'MG'
+
+- Alfabeto: $\{-,m,g\}$
+- Las fbfs del lenguaje 'MG' son aquellas cadenas que empiezan y terminan por un carácter '$-$' y, además, '$m$' y '$g$' ocurren una y sólo una vez y '$m$' ocurre antes que '$g$'.
+
+Defina como una clausura inductiva el conjunto de fbfs del lenguaje 'MG'.
+
+## La semántica
+
+- Valores **semánticos**, valores **destacados**.
+- **Interpretación**: una aplicación que asocia un significado (valor semántico) a cada fórmula bien formada.
+- **Modelo** para **A**: una interpretación que asigna a **A** un valor destacado.
+- Fórmula **válida**: aquella para la que toda interpretación es un modelo.
+
+### Ejercicio: Una semántica para 'MG'
+
+- Valores semánticos:
+
+$$ \{(a,b,c) \hspace{0.2cm}|\hspace{0.2cm} a,b,c\hspace{0.2cm} son\, números\hspace{0.2cm} naturales\} $$
+
+- Valores destacados:
+
+$$ \{(a,b,c)\hspace{0.2cm} |\hspace{0.2cm} a+b=c\}$$
+
+- Interpretaciones: dada una cadena $\delta = \,'-\alpha m \beta g \gamma-'$ se define
+
+$$I_k(\delta) =\, (k\cdot long(\alpha), k\cdot long(\beta), k\cdot long(\gamma))$$
+¿Cuáles son las fbfs válidas de este lenguaje?
+
+## Teoría de la demostración
+
+Mecanismo sintáctico que permite obtener unas fbfs a partir de otras, para establecer la noción sintáctica de deducción. Su objetivo es la búsqueda de una definición inductiva del conjunto de fórmulas válidas basada en los conceptos formales de **teorema** y **demostración**.
+
+::: {.callout-note icon=false}
+
+### Definiciones principales
+
+1. Un **sistema axiomático** viene determinado por un conjunto de fbfs llamadas **axiomas** y un conjunto de **reglas de inferencia** (sintácticas).
+2. Una **demostración** es una secuencia finita D de fbfs tal que cada fbf de D es o consecuencia inmediata de alguna de las fbfs anteriores o bien es un axioma.
+3. Un **teorema** es la última fbf de una demostración.
+4. Un sistema se dice **correcto** cuando todo teorema es una fbf válida.
+5. Un sistema se dice **completo** cuando toda fbf válida es un teorema.
+:::
+
+### Ejercicio: Busquemos un sistema axiomático para 'MG'
+
+- Axiomas:
+  - La fbf '$-mg-$' es un axioma.
+- Reglas de inferencia:
+  - De '$-\alpha m \beta g \gamma-$' se deduce '$-\alpha m \beta -g\gamma--$'
+  - De '$-\alpha m \beta g \gamma-$' se deduce '$--\alpha m \beta g \gamma--$'
+  
+1. ¿Es correcto este sistema para la semántica del lenguaje?
+2. ¿Es completo?
+
+### Ejercicio: El sistema axiomático MIU
+
+Consideramos el alfabeto $A=\{M,I,U\}$ y el lenguaje universal sobre $A$.
+
+- Axiomas: '$MI$' es un axioma.
+- Reglas de inferencia:
+  - De $Mx$ se deduce $Mxx$
+  - De $xI$ se deduce $xIU$
+  - De $xUUy$ se deduce $xy$
+  - De $xIIIy$ se deduce $xUy$
+  
+¿Qué fbfs son teoremas? $MI,MUI,UMI,MUIU,MU$
+
+### Deducción automática
+
+La idea es bucar un algoritmo de **decisión** tal que, dada una fórmula A *decida* en un número finito de etapas si A es o no válida.
+
+Una lógica se dice decidible si dispone de tal algoritmo. La Lógica Proposicional es decidible, mientras que la Lógica de Predicados no es decidible (Church-Turing), pero sí es semidecidible (Herbrand).

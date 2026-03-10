@@ -1,0 +1,239 @@
+# Lógica Clásica Proposicional
+
+- La Lógica estudia "la verdad".
+- Busca esquemas válidos de razonamiento.
+- ¿Cómo se detecta lo válido? Mediante la idea de demostración en un sistema formal.
+
+- Lógica Clásica
+  - Enunciados declarativos.
+  - Libres de contexto.
+  - Funcional de los valores de verdad.
+  - Dos niveles de análisis (proposicional y de predicados).
+- Lógicas NO Clásicas
+  - Extensiones: modal, temporal, deóntica, doxástica.
+  - Rivales: Intuicionista, multivaluada, difusa, lineal.
+  
+- **Enunciados declarativos**: son aquellos sobre los que se puede afirmar si son verdaderos o falsos.
+
+Ejemplos: "El cielo es azul" y "El membrillo es dulce" son declarativos, mientras que "Ojalá el examen sea fácil", "Haced todos los ejercicios" y "¿Qué hora es?" no lo son.
+
+- **Enunciados libres de contexto**: son enunciados sobre los que se puede afirmar si son verdaderos o falsos sin necesidad de recurrir a información adicional.
+
+Ejemplos: "El cielo está nublado" puede ser verdadero o falso dependiendo del lugar. "Mañana lloverá en Málaga", ahora no podemos decir si es verdadero o falso.
+
+Dos niveles de análisis:
+
+- Proposicional: si las expresiones primitivas del lenguaje representan proposiciones (oraciones gramaticales con sentido completo).
+- De predicados: si las expresiones primitivas permiten representar elementos de las proposiciones.
+
+- **Funcional de los valores de verdad**: significa que el valor (verdadero o falso) de una fórmula depende de los valores de sus componentes primitivos (o atómicos). En el caso proposicional está relacionado con las *tablas de verdad*.
+
+Para definir una lógica (clásica o no) necesitamos:
+
+- Una **sintaxis**: un alfabeto y unas reglas precisas que definan qué se considera una fórmula bien formada.
+- Una **semántica**, que permita asignar significado a una fórmula bien formada. En el caso de la lógica clásica, el significado de una fórmula se reduce a afirmar si es verdadera o falsa.
+
+## Sintaxis de la Lógica Proposicional
+
+### Alfabeto
+
+::: {.callout-note icon=false}
+
+# Definición
+El *alfabeto* está formado por los siguientes conjuntos:
+
+1. Un conjunto numerable de *símbolos de proposición*:
+$$\sqcap = \{p,q,r,...,p_1,q_1,r_1,...,p_n,q_n,r_n,...\}$$
+2. *Conectivos* u *Operadores lógicos*:$\,$ $\neg$,$\,\lor$,$\,\land$,$\,\rightarrow$,$\,\leftrightarrow$
+3. Símbolos de puntuación: "(", ")".
+:::
+
+### Fórmulas bien formadas
+
+::: {.callout-note icon=false}
+
+# Definición "simple"
+
+El conjunto de las *fórmulas bien formadas (fbfs)* está determinado por las siguientes reglas de formación:
+
+1. Los elementos de $\sqcap$ son *fbfs*: las *fórmulas atómicas*.
+2. Si $A$ es una *fbf*, $\neg A$ es una *fbf*.
+3. Si $A$ y $B$ son *fbfs* entonces $(A \land B), (A \lor B), (A \rightarrow B)$ y $(A \leftrightarrow B)$ son *fbfs*.
+:::
+
+- Los símbolos $A$ y $B$ usados en la definición *no son los símbolos del lenguaje* sino *metasímbolos*.
+- El único convenio para la simplificación de fórmulas que utilizaremos es *la eliminación de los paréntesis inicial y final de una fórmula si los tuviera*.
+
+::: {.callout-note icon=false}
+
+# Definición "más formal"
+
+El lenguaje de la lógica proposicional $L$ es la *clausura inductiva* del conjunto $\sqcap$ para los constructores $C_{\neg},\, C_{\lor},\, C_{\land},\, C_{\rightarrow}$ y $C_{\leftrightarrow}$:
+
+$C_{\neg}(x) = \neg x$
+
+$C_{\land}(x,y) = (x \land y)$     
+
+$C_{\lor}(x,y) = (x \lor y)$
+
+$C_{\rightarrow}(x,y) = (x \rightarrow y)$
+              
+$C_{\leftrightarrow}(x,y) = (x \leftrightarrow y$     
+
+:::
+
+::: {.callout-important}
+
+# Importante
+
+En clausuras inductivas, para demostrar una propiedad $P$, se puede usar el *principio de inducción estructural*.
+:::
+
+Ejemplos:
+
+1. Ni $p \land$ ni $\neg p \lor q(r \rightarrow s)$ son fbfs.
+2. $(p \land \neg q)$ es fbf, pero $p \land \neg q$ no lo es.
+3. $\neg (p \land \neg q)$ es fbf. No podemos representarla sin paréntesis.
+4. No se permite escribir $p \land q \lor r$ porque podría significar $p \land (q \lor r)$ o $(p \land q) \lor r$, que no indican lo mismo.
+
+::: {.callout-important}
+
+# Observaciones
+
+1. Los paréntesis son necesarios para eliminar ambigüedades en fórmulas compuestas por más de dos conectivos.
+2. El único convenio para la simplificación de fórmulas que utilizaremos es la *eliminación de los paréntesis inicial y final de una fórmula si los tuviera*.
+:::
+
+### Clausuras inductivas libremente generadas
+
+- Es claro que, tal como se ha definido $L$, cada *fbf* se puede construir de un modo único a partir de los constructores.
+- Las clausuras inductivas que disfrutan de esta propiedad reciben el apelativo de *libremente generadas*.
+
+**Ejercicio**
+
+Como ejemplo de clausura inductiva NO libremente generada podemos considerar el lenguaje de la lógica proposicional sin el uso de paréntesis.
+
+La expresión $p \land q \lor r$ podría significar $p \land (q \lor r)$ o $(p \land q) \lor r$.
+
+### Funciones recursivas
+
+Sobre una clausura inductiva libremente generada, pueden definirse funciones de *forma recursiva*, definiéndola explícitamente solo sobre los elementos primitivos. Pero se necesita algo más para definir una función de forma recursiva. ¿Qué es?
+
+#### Ejemplo
+
+Función grado, **gr: L** $\rightarrow \mathbb{N}$:
+
+**gr(p)** = 0 para todo **p** $\in \sqcap$
+**gr($\neg$A) = 1 + gr(A)**
+**gr(A * B) = 1 + gr(A) + gr(B)**
+
+#### Árbol sintáctico
+
+El *árbol sintáctico* para una fórmula A, denotado por $T_A$, se define recursivamente como sigue:
+
+1. $T_A$ es A para todo A $\in \sqcap$.
+2. $T_{\neg A}$ es
+```{=latex}
+\begin{itemize}
+    \item[2.] $T_{\neg A}$ es \begin{forest}
+      for tree={
+        math content,
+        edge={thick},
+        l sep=0.6cm,
+        baseline % <--- Esto alinea el nodo raíz con la línea de texto actual
+      }
+      [\neg
+        [T_A]
+      ]
+    \end{forest}
+\end{itemize}
+```
+
+3. Para cada * $\in \{\land, \lor, \rightarrow, \leftrightarrow,\}$, $T_{A*B}$ es
+```{=latex}
+\begin{center}
+\begin{forest}
+  for tree={
+    math content,
+    s sep+=1.5em,
+    l sep+=1.5em,
+    edge={thick}
+  }
+  [*
+    [T_A]
+    [T_B]
+  ]
+\end{forest}
+\end{center}
+```
+
+Ejemplo de árbol sintáctico:
+
+$(((p \land q) \rightarrow r) \land (p \rightarrow q)) \rightarrow (p \rightarrow r)$
+
+```{=latex}
+\begin{center}
+\begin{forest}
+  for tree={
+    math content,
+    s sep+=1.5em,
+    l sep+=1.5em,
+    edge={thick}
+  }
+  [\rightarrow
+    [\wedge
+      [\rightarrow
+        [\wedge [p][q] ]
+        [r]
+      ]
+      [\rightarrow [p][q] ]
+    ]
+    [\rightarrow [p][r] ]
+  ]
+\end{forest}
+\end{center}
+```
+
+- *Valores semánticos*: BOOL = {0,1}
+- *Valor destacado*: 1
+- *Interpretaciones*: son las aplicaciones $I : L \rightarrow \{0,1\}$ definidas como extensión única de una aplicación $I : \sqcap \rightarrow \{0,1\}$ por las siguientes condiciones:
+  - $I(\neg A) = 1$ si y solo si $I(A) = 0$
+  - $I(A \land B) = 1$ si y solo si $I(A) = I(B) = 1$
+  - $I(A \lor B) = 0$ si y solo si $I(A) = I(B) = 0$
+  - $I(A \leftrightarrow B) = 1$ si y solo si $I(A) = I(B)$
+  - $I(A \rightarrow B) = 0$ si y solo si $I(A) = 1$ e $I(B) = 0$
+
+#### Tablas de verdad
+
+```{=latex}
+\begin{center}
+\begin{tabular}{cc|c}
+\toprule
+$p$ & $q$ & $p \rightarrow q$ \\
+\midrule
+V & V & V \\
+V & F & F \\
+F & V & V \\
+F & F & V \\
+\bottomrule
+\end{tabular}
+\end{center}
+```
+
+La tabla de verdad para $(\neg p \lor q) \rightarrow (\neg p \land q)$ es:
+
+```{=latex}
+\begin{center}
+\begin{tabular}{cc|c}
+\toprule
+$p$ & $q$ & $p \rightarrow q$ \\
+\midrule
+V & V & V \\
+V & F & F \\
+F & V & V \\
+F & F & V \\
+\bottomrule
+\end{tabular}
+\end{center}
+```
+

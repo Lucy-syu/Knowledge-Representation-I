@@ -1,0 +1,14 @@
+# Introducción
+
+¿Qué es la lógica? ¿Para qué sirve? Dos de las posibles respuestas a estas preguntas nos las ofrecen D. Hofstander y R. Smullyan: "La lógica nació como un intento de mecanizar los procesos intelectivos del razonamiento" y "La lógica matemática nació como un intento de formalizar el concepto de *demostración*", respectivamente.
+
+Usos aparte, la Lógica estudia "la verdad" buscando esquemas válidos de razonamiento. ¿Cómo se sabe si esos esquemas son válidos? Mediante la idea de demostración en un sistema formal.
+
+Hay dos principales tipos de Lógica: la Lógica Clásica y las Lógicas no Clásicas (no abordadas en esta asignatura).
+
+Esta asignatura consistirá en:
+- Introducción a la lógica clásica (sintaxis y semántica).
+- Formalización (uso de la lógica para representar lenguaje natural).
+- Métodos de demostración.
+- Corrección y completitud.
+- Automatización del proceso deductivo.

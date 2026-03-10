@@ -1,0 +1,28 @@
+project:
+  type: book
+
+book:
+  title: "Representación del Conocimiento I"
+  author: "Lucía Cabrera Luque"
+  date: "3/5/2026"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - formal_languages_theories_systems.qmd
+    - classic_prop_logic.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+  pdf:
+    documentclass: scrreprt
+    include-in-header:
+      text: |
+        \usepackage{forest}
+
+
