@@ -207,14 +207,14 @@ $(((p \land q) \rightarrow r) \land (p \rightarrow q)) \rightarrow (p \rightarro
 
 ```{=latex}
 \begin{center}
-\begin{tabular}{cc|c}
+\begin{tabular}{cc|c|c|c|c|c}
 \toprule
-$p$ & $q$ & $p \rightarrow q$ \\
+$p$ & $q$ & $\neg p$ & $p \land q$ & $p \lor q$ & $p \leftrightarrow q$ & $p \rightarrow q$ \\
 \midrule
-V & V & V \\
-V & F & F \\
-F & V & V \\
-F & F & V \\
+1 & 1 & 0 & 1 & 1 & 1 & 1 \\
+1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 & 1 & 0 & 1 \\
+0 & 0 & 1 & 0 & 0 & 1 & 1 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -224,16 +224,168 @@ La tabla de verdad para $(\neg p \lor q) \rightarrow (\neg p \land q)$ es:
 
 ```{=latex}
 \begin{center}
-\begin{tabular}{cc|c}
+\begin{tabular}{cc|c|c|c|c}
 \toprule
-$p$ & $q$ & $p \rightarrow q$ \\
+$p$ & $q$ & $\neg p$ & $\neg p \lor q$ & $\neg p \land q$ & $(\neg p \lor q) \rightarrow (\neg p \land q)$ \\
 \midrule
-V & V & V \\
-V & F & F \\
-F & V & V \\
-F & F & V \\
+1 & 1 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 1 \\
+0 & 1 & 1 & 1 & 1 & 1 \\
+0 & 0 & 1 & 1 & 0 & 0 \\
 \bottomrule
 \end{tabular}
 \end{center}
 ```
 
+- Para saber el valor de I sobre una fórmula dada A, no es necesario conocer los valores de I sobre todos los símbolos proposicionales del lenguaje, basta con conocerlos para los símbolos proposicionales que aparecen en A.
+- Una *interpretación para una fbf* A es una asignación de valores de verdad a los símbolos proposicionales que intervienen en A.
+- Si en la fórmula A intervienen n símbolos proposicionales, el número de *interpretaciones para A* es $2^n$. Estas interpretaciones se representan con las *tablas de verdad*.
+
+#### Satisfacibilidad y validez
+
+::: {.callout-note icon=false}
+# Definiciones
+
+- Una *fbf A es válida o tautología* si I(A) = 1 para **toda** interpretación I; se denota $\models A$.
+- Una *fbf A es satisfacible* si I(A) = 1 para **alguna** interpretación I; decimos que I es un *modelo* para A.
+- Una *fbf A satisfacible* pero no válida se dice *contingente*.
+- Una *fbf A* es *insatisfacible* o *contradicción* si se tiene que I(A) = 0 para **toda** interpretación I.
+- Un conjunto de *fbfs* $\Omega$ es *satisfacible* o *consistente* si existe una interpretación I tal que I(A) = 1 para todo $A \in \Omega$. Se dice *insatisfacible* si no es satisfacible.
+:::
+
+Ejemplos:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+$$
+\begin{array}{l p{2cm} l}
+\text{Si te tomas la medicación, entonces te pondrás mejor.} & & A \rightarrow B \\
+\text{Te tomas la medicación;} & & A \\
+\cline{1-1} \cline{3-3}
+\text{Por lo tanto, te pones mejor.} & & B
+\end{array}
+$$
+
+$\checkmark (correcto)$
+
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="40%"}
+$$
+\begin{array}{l p{2cm} l}
+\text{Si te tomas la medicación, entonces te pondrás mejor.} & & A \rightarrow B \\
+\text{Te pones mejor;} & & A \\
+\cline{1-1} \cline{3-3}
+\text{Por lo tanto, te has tomado la medicación.} & & B
+\end{array}
+$$
+
+$X (incorrecto)$
+
+:::
+
+::::
+
+::: {.callout-tip icon=false}
+# Observación
+
+Una inferencia es válida si siempre que todas las premisas son verdaderas entonces la conclusión también es verdadera.
+:::
+
+- Decimos que un esquema de razonamiento es **válido** cuando, cumpliéndose todas las hipótesis, se cumple también la conclusión.
+
+#### Principio de refutación
+
+::: {.callout-important}
+
+¡El principio de refutación es muy importante!
+
+:::
+
+::: {.callout-note icon=false}
+
+# Definición
+
+Una fórmula A se dice que es *consecuencia lógica*, se *infiere* o se *deriva semánticamente* de un conjunto $\Omega$ si todo modelo de $\Omega$ también es modelo de A. Lo denotamos $\Omega \models A$
+
+:::
+
+¿Es $(A \rightarrow B) \land A \models B$ una FBF? No, porque $\models$ no forma parte del **alfabeto**, es un elemento introducido ahora en la semántica, no estaba en la sintaxis.
+
+::: {.callout-note icon=false}
+
+# Teorema
+
+$\Omega \models A$ si y solo si $\Omega \cup \{ \neg A \}$ es insatisfacible.
+
+:::
+
+::: {.callout-note icon=false}
+
+# Corolario (Principio de refutación)
+
+$A_1, ..., A_n \models A$ si y solo si $A_1 \land ... \land A_n \land \neg A$ es *insatisfacible*.
+
+:::
+
+::: {.callout-caution icon=false}
+
+# CUIDADO
+
+Una inferencia válida es únicamente un patrón de razonamiento.
+
+No toda conclusión de una inferencia válida tiene que ser verdadera.
+
+:::
+
+Ejemplo:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+$$
+\begin{array}{l p{2cm} l}
+\text{Si saltas por una ventana, entonces podrás volar.} & & A \rightarrow B \\
+\text{Saltas por la ventana;} & & A \\
+\cline{1-1} \cline{3-3}
+\text{Por lo tanto, podrás volar.} & & B
+\end{array}
+$$
+
+$\checkmark$ (correcto)
+
+Sin embargo, sabemos que esto no es verdadero, si saltas por una ventana no vas a volar. A esto nos referimos cuando decimos que no toda conclusión de una inferencia válida tiene que ser verdadera.
+
+:::
+
+::::
+
+##### Compacidad
+
+La consecuencia lógica se basa en un conjunto finito de hipótesis. Computacionalmente, resulta interesante considerar la cardinalidad del conjunto $\Omega$. El siguiente teorema asegura que es suficiente considerar conjuntos finitos de hipótesis.
+
+::: {.callout-note icon=false}
+
+# Teorema (de Compacidad)
+
+Un *conjunto de $\Omega$ de fbfs* es *satisfacible* si y solo si todos sus *subconjuntos finitos son satisfacibles*.
+
+:::
+
+::: {.callout-note icon=false}
+
+# Corolario
+
+$A_1, ..., A_n \models A$ si y solo si $A_1 \land ... \land A_n \land \neg A$ es *insatisfacible*.
+
+:::
+
+¿Qué nos indica una consecuencia lógica?
+
+1. Si todas las premisas son verdaderas, entonces la conclusión ha de ser verdadera.
+2. Si la conclusión es falsa, entonces alguna premisa debe ser falsa.
